@@ -10,7 +10,7 @@
 ] %}
 
 {% block content %}
-    {% if result.data | length %}
+    {% if result.rows | length %}
         <table class="data fullwidth">
             {% if result.columns | length %}
                 <thead>
