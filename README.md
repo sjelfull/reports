@@ -21,7 +21,7 @@ Example report in Twig:
 ```twig
 {% set newsCount = craft.entries.section('news').limit(null).total() %}
 {{ craft.reports.prepare({
-    columns: ['Total news entries'], 
+    columns: [ 'Total news entries' ], 
     rows: [ [ newsCount ] ]
 }) }}
 ```
