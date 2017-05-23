@@ -25,7 +25,6 @@ Example report in Twig:
 
 ## Reports Roadmap
 
-* Add CSV export
 * Add charts?
 
 Brought to you by [Superbig](https://superbig.co)
