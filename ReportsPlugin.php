@@ -46,7 +46,7 @@ class ReportsPlugin extends BasePlugin
      */
     public function getDocumentationUrl ()
     {
-        return 'https://github.com/sjelfull/reports/blob/master/README.md';
+        return 'https://superbig.co/plugins/reports';
     }
 
     /**
@@ -54,7 +54,7 @@ class ReportsPlugin extends BasePlugin
      */
     public function getReleaseFeedUrl ()
     {
-        return 'https://raw.githubusercontent.com/sjelfull/reports/master/releases.json';
+        return 'https://superbig.co/plugins/reports/feed';
     }
 
     /**
