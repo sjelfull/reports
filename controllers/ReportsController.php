@@ -83,6 +83,22 @@ class ReportsController extends BaseController
             'result' => $result,
         ]);
     }
+    public function actionExport (array $variables = [ ])
+    {
+        $reportId = null;
+
+        if ( isset($variables['reportId']) ) {
+            $reportId = $variables['reportId'];
+        }
+
+        if ( empty($reportId) ) {
+            $this->redirect('reports');
+        }
+
+        craft()->reports->exportCsv($reportId);
+
+        craft()->end();
+    }
 
 
     public function actionSave (array $variables = [ ])

@@ -21,6 +21,8 @@ class ReportsPlugin extends BasePlugin
     public function init ()
     {
         parent::init();
+
+        require_once __DIR__ . '/vendor/autoload.php';
     }
 
     /**
@@ -98,10 +100,11 @@ class ReportsPlugin extends BasePlugin
     public function registerCpRoutes ()
     {
         return [
-            'reports' => [ 'action' => 'reports/index' ],
-            'reports/new' => [ 'action' => 'reports/new' ],
+            'reports'                        => [ 'action' => 'reports/index' ],
+            'reports/new'                    => [ 'action' => 'reports/new' ],
             'reports/edit/(?P<reportId>\d+)' => [ 'action' => 'reports/edit' ],
-            'reports/run/(?P<reportId>\d+)' => [ 'action' => 'reports/run' ],
+            'reports/run/(?P<reportId>\d+)'  => [ 'action' => 'reports/run' ],
+            'reports/export/(?P<reportId>\d+)'  => [ 'action' => 'reports/export' ],
         ];
     }
 }

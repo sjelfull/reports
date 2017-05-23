@@ -15,11 +15,11 @@ namespace Craft;
 
 class ReportsVariable
 {
-    public function json ($columns = [ ], $data = null)
+    public function json ($columns = [ ], $rows = [])
     {
         $data = [
             'columns' => $columns,
-            'data'    => $data,
+            'rows'    => $rows,
         ];
 
         $json = json_encode($data);

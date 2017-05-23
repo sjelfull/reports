@@ -13,6 +13,8 @@
 
 namespace Craft;
 
+use League\Csv\Writer;
+
 abstract class Json
 {
     public static function getLastError ($asString = false)
@@ -117,6 +119,27 @@ class ReportsService extends BaseApplicationComponent
         return $this->parseReport($report);
     }
 
+    public function exportCsv ($id = null)
+    {
+        $report           = $this->getReportById($id);
+        $report->runCount = $report->runCount + 1;
+        $this->saveReport($report);
+
+        $data = $this->parseReport($report);
+
+        $csv = Writer::createFromFileObject(new \SplTempFileObject());
+
+        if ( isset($data['columns']) ) {
+            $csv->insertOne($data['columns']);
+        }
+
+        foreach ($data['rows'] as $row) {
+            $csv->insertOne($row);
+        }
+
+        $csv->output(StringHelper::toKebabCase($report->name) . '.csv');
+    }
+
     public function parseReport (ReportsModel $report)
     {
         $result  = craft()->templates->renderString($report->content);
@@ -151,9 +174,9 @@ class ReportsService extends BaseApplicationComponent
             return false;
         }
 
-        $record->name    = $report->name;
-        $record->handle  = $report->handle;
-        $record->content = $report->content;
+        $record->name     = $report->name;
+        $record->handle   = $report->handle;
+        $record->content  = $report->content;
         $record->runCount = $report->runCount;
 
         if ( $record->save() ) {
