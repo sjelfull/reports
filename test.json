@@ -1,0 +1,4 @@
+{% spaceless %}
+{% set newsCount = craft.entries.section('news').limit(null).total() %}
+{{ craft.reports.json(['Total news entries'], [ [ newsCount ] ]) }}
+{% endspaceless %}

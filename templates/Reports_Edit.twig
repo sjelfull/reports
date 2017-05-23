@@ -1,0 +1,58 @@
+{% requireAdmin %}
+
+{% extends "_layouts/cp" %}
+{% set title = report.id ? "Edit report"|t : "Create report"|t %}
+
+{% import "_includes/forms" as forms %}
+
+{% set crumbs = [
+{ label: "Reports"|t, url: url('reports') }
+] %}
+
+{% block content %}
+    <form action="" method="post">
+        {{ getCsrfInput() }}
+        <input type="hidden" name="action" value="reports/save"/>
+        {% if report.id %}
+            <input type="hidden" name="id" value="{{ report.id }}"/>
+        {% endif %}
+
+        {{ forms.textField({
+            first: true,
+            label: "Name"|t,
+            instructions: "What this entry type will be called in the CP."|t,
+            id: 'name',
+            name: 'name',
+            value: report.name,
+            errors: report.getErrors('name'),
+            autofocus: true,
+            required: true
+        }) }}
+
+        {{ forms.textField({
+            label: "Handle"|t,
+            instructions: "How you’ll refer to this entry type in the templates."|t,
+            id: 'handle',
+            class: 'code',
+            name: 'handle',
+            value: report.handle,
+            errors: report.getErrors('handle'),
+            required: true
+        }) }}
+
+
+        {{ forms.textareaField({
+            label: "Content"|t,
+            instructions: "The twig code"|t,
+            id: 'content',
+            class: 'code',
+            name: 'content',
+            value: report.content,
+            errors: report.getErrors('content'),
+            rows: 10,
+            required: true
+        }) }}
+
+        <button class="submit btn">{{ "Save report"|t }}</button>
+    </form>
+{% endblock %}

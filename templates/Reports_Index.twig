@@ -1,0 +1,68 @@
+{% extends "_layouts/cp" %}
+{% set title = "Reports"|t %}
+
+{% set docsUrl = 'http://craftcms.com/docs/fields' %}
+
+{% set groups = craft.fields.getAllGroups('id') %}
+
+{% if groupId is defined %}
+    {% if groups[groupId] is not defined %}
+        {% exit 404 %}
+    {% endif %}
+
+    {% set fields = groups[groupId].getFields() %}
+{% else %}
+    {% set fields = craft.fields.getAllFields() %}
+{% endif %}
+
+
+{% set extraPageHeaderHtml %}
+    {% if groups %}
+        <div class="buttons right">
+            <a href="{{ url('reports/new') }}" class="submit btn add icon">{{ "New report"|t }}</a>
+        </div>
+    {% endif %}
+{% endset %}
+
+
+{% block content %}
+    <p id="nofields"{% if reports %} class="hidden"{% endif %}>
+            {{ "No reports exist yet."|t }}
+    </p>
+
+    {% if reports %}
+        <table id="js-reports" class="data fullwidth collapsible">
+            <thead>
+            <th scope="col">{{ "Name"|t }}</th>
+            <th scope="col">{{ "Handle"|t }}</th>
+            <th scope="col">{{ "Run count"|t }}</th>
+            <td class="thin"></td>
+            <td class="thin"></td>
+            </thead>
+            <tbody>
+            {% for report in reports %}
+                <tr data-id="{{ report.id }}" data-name="{{ report.name|t }}">
+                    <th scope="row" data-title="{{ 'Name'|t }}"><a href="{{ url('reports/edit/' ~ report.id) }}">{{ report.name|t }}</a>
+                    </th>
+                    <td data-title="{{ 'Handle'|t }}"><code>{{ report.handle }}</code></td>
+                    <td data-title="{{ 'Run count'|t }}">
+                        {{ report.runCount }}
+                    </td>
+                    <td class="thin"><a class="icon run" title="{{ 'Run'|t }}" href="{{ url('reports/run/' ~ report.id) }}">Run</a></td>
+                    <td class="thin"><a class="delete icon" title="{{ 'Delete'|t }}" role="button"></a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}
+
+
+{% includejs %}
+new Craft.AdminTable({
+    tableSelector: '#js-reports',
+    noObjectsSelector: '#js-noReports',
+    deleteAction: 'reports/deleteReport'
+});
+{% endincludejs %}
+

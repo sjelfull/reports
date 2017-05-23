@@ -1,0 +1,35 @@
+{% requireAdmin %}
+
+{% extends "_layouts/cp" %}
+{% set title = "Report result"|t %}
+
+{% import "_includes/forms" as forms %}
+
+{% set crumbs = [
+    { label: "Reports"|t, url: url('reports') }
+] %}
+
+{% block content %}
+    {% if result.data | length %}
+        <table class="data fullwidth">
+            {% if result.columns | length %}
+                <thead>
+                    <tr>
+                        {% for column in result.columns %}
+                            <th>{{ column }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+            {% endif %}
+            <tbody>
+                {% for row in result.data %}
+                <tr>
+                    {% for column in row %}
+                        <td>{{ column }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}
