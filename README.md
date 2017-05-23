@@ -20,7 +20,10 @@ Example report in Twig:
 
 ```twig
 {% set newsCount = craft.entries.section('news').limit(null).total() %}
-{{ craft.reports.json(['Total news entries'], [ [ newsCount ] ]) }}
+{{ craft.reports.prepare({
+    columns: ['Total news entries'], 
+    rows: [ [ newsCount ] ]
+}) }}
 ```
 
 ## Reports Roadmap
