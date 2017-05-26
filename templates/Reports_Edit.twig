@@ -6,8 +6,16 @@
 {% import "_includes/forms" as forms %}
 
 {% set crumbs = [
-{ label: "Reports"|t, url: url('reports') }
+    { label: "Reports"|t, url: url('reports') }
 ] %}
+
+{% includeJsResource 'reports/js/codemirror/lib/codemirror.js' %}
+{% includeJsResource 'reports/js/codemirror/addon/mode/overlay.js' %}
+{% includeJsResource 'reports/js/codemirror/mode/twig/twig.js' %}
+{% includeJsResource 'reports/js/codemirror/mode/htmlmixed/htmlmixed.js' %}
+{% includeCssResource 'reports/js/codemirror/lib/codemirror.css' %}
+{% includeCssResource 'reports/css/Reports_Editor.css' %}
+{% includeJsResource 'reports/js/Reports_Editor.js' %}
 
 {% block content %}
     <form action="" method="post">
@@ -45,7 +53,7 @@
             label: "Content"|t,
             instructions: "The twig code"|t,
             id: 'content',
-            class: 'code',
+            class: 'code js-reportsEditor',
             name: 'content',
             value: report.content,
             errors: report.getErrors('content'),
