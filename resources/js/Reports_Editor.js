@@ -7,7 +7,7 @@ if ($editor) {
     });
 
     var cmInstance = CodeMirror.fromTextArea($editor, {
-        mode: 'htmltwig',
+        mode: 'twig',
         lineNumbers: true,
         indentUnit: 4,
     });
