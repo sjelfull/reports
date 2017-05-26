@@ -1,27 +1,10 @@
 {% extends "_layouts/cp" %}
 {% set title = "Reports"|t %}
 
-{% set docsUrl = 'http://craftcms.com/docs/fields' %}
-
-{% set groups = craft.fields.getAllGroups('id') %}
-
-{% if groupId is defined %}
-    {% if groups[groupId] is not defined %}
-        {% exit 404 %}
-    {% endif %}
-
-    {% set fields = groups[groupId].getFields() %}
-{% else %}
-    {% set fields = craft.fields.getAllFields() %}
-{% endif %}
-
-
 {% set extraPageHeaderHtml %}
-    {% if groups %}
-        <div class="buttons right">
-            <a href="{{ url('reports/new') }}" class="submit btn add icon">{{ "New report"|t }}</a>
-        </div>
-    {% endif %}
+    <div class="buttons right">
+        <a href="{{ url('reports/new') }}" class="submit btn add icon">{{ "New report"|t }}</a>
+    </div>
 {% endset %}
 
 
