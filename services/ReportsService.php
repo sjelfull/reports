@@ -146,8 +146,10 @@ class ReportsService extends BaseApplicationComponent
         $matches = [ ];
 
         if ( preg_match('/(%report%(.+)%endreport%)/um', $result, $matches) ) {
-            $result = $matches[2];
-            $parsed = Json::decode($result, true);
+            $result         = $matches[2];
+            $parsed         = Json::decode($result, true);
+            $parsed['name'] = $report->name;
+            $parsed['id']   = $report->id;
 
             return $parsed;
         }

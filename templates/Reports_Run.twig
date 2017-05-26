@@ -1,13 +1,19 @@
 {% requireAdmin %}
 
 {% extends "_layouts/cp" %}
-{% set title = "Report result"|t %}
+{% set title = result.name %}
 
 {% import "_includes/forms" as forms %}
 
 {% set crumbs = [
     { label: "Reports"|t, url: url('reports') }
 ] %}
+
+{% set extraPageHeaderHtml %}
+    <div class="buttons right">
+        <a href="{{ url('reports/edit/' ~ result.id) }}" class="submit btn pencil icon">{{ "Edit report"|t }}</a>
+    </div>
+{% endset %}
 
 {% block content %}
     {% if result.rows | length %}
