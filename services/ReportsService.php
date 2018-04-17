@@ -110,6 +110,11 @@ class ReportsService extends BaseApplicationComponent
         return ReportsRecord::model()->findAll();
     }
 
+    public function deleteReport ($id = null)
+    {
+        return ReportsRecord::model()->deleteByPk($id);
+    }
+
     public function run ($id = null)
     {
         $report           = $this->getReportById($id);

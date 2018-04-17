@@ -132,4 +132,13 @@ class ReportsController extends BaseController
 
         $this->redirect('reports');
     }
+
+    public function actionDeleteReport()
+    {
+        $id      = craft()->request->getRequiredParam('id');
+
+        $this->returnJson([
+            'success' => craft()->reports->deleteReport($id),
+        ]);
+    }
 }
